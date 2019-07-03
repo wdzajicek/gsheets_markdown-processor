@@ -13,6 +13,9 @@ markdown: kramdown
 plugins:
   - jekyll-feed
 
+include:
+  - "favicon.ico"
+
 exclude:
   - "gulpfile.js"
   - "gulp-tasks/"

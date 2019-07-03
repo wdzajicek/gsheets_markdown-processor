@@ -10,7 +10,7 @@
         {
           "useBuiltIns": "usage",
           "corejs": {
-            "version": 3,
+            "version": 2,
             "proposals": true
           }
         }
