@@ -3,6 +3,6 @@ import footerDate from './footerDate.js';
 import test from './test.js';
 
 document.addEventListener('DOMContentLoaded', function() {
-  lazyLoad;
-  footerDate;
+  lazyLoad();
+  footerDate();
 });

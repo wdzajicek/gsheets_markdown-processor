@@ -10,7 +10,7 @@
         {
           "useBuiltIns": "usage",
           "corejs": {
-            "version": 2,
+            "version": 3,
             "proposals": true
           }
         }
@@ -18,13 +18,10 @@
     ]
   },
   "browserslist": [
-    "> 0.25%",
+    "defaults",
     "ie >=9",
-    "Firefox ESR",
     "not ie <= 8",
-    "not ie_mob <= 8",
-    "not bb <= 10",
-    "not op_mob <= 12.1"
+    "not ie_mob <= 8"
   ],
   "scripts": {
     "watch": "gulp",
@@ -68,6 +65,8 @@
     "yargs": "^13.2.4"
   },
   "dependencies": {
-    "@babel/polyfill": "^7.4.4"
+    "@babel/polyfill": "^7.4.4",
+    "core-js": "^3.1.4",
+    "regenerator-runtime": "^0.13.2"
   }
 }
