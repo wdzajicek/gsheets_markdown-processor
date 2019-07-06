@@ -3,6 +3,8 @@
   {{ content }}
   {% include footer.html %}
   {% include scripts/vendor-cdn.html %}
+  {% if page.sheet_key %}
   {% include scripts/table-cdn.html %}
+  {% endif %}
   {% include scripts/custom.html %}
 {% include foot.html %}
