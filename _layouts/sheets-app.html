@@ -1,9 +1,5 @@
 {% include head.html %}
-  {% if page.sheet_key %}
   {% include nav-sheets.html %}
-  {% else %}
-  {% include nav.html %}
-  {% endif %}
   {{ content }}
   {% include footer.html %}
   {% include scripts/vendor-cdn.html %}

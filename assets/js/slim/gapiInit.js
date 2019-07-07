@@ -1,3 +1,5 @@
+import buildTableOne from './buildtodoTable.js';
+import buildTableTwo from './buildnotesTable.js';
 // Client ID and API key from the Developer Console
 var CLIENT_ID = '265176809583-7t9gsdrekatda321hlbg8lk5l62spvge.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyBgZblvKPDA88GZhQ_c8YUMXsZLCs8jiA8';
@@ -87,21 +89,19 @@ function appendPre(message) {
  */
 function listMajors() {
   gapi.client.sheets.spreadsheets.values.get({
-    spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-    range: 'Class Data!A2:E',
+    spreadsheetId: '1oB-GGFn4VeWxXrwKT6_Xs0ivenLd081qXQJFXSQo0dM',
+    range: 'TODO',
   }).then(function(response) {
-    var range = response.result;
-    console.log(range);
-    if (range.values.length > 0) {
-      appendPre('Name, Major:');
-      for (let i = 0; i < range.values.length; i++) {
-        var row = range.values[i];
-        // Print columns A and E, which correspond to indices 0 and 4.
-        appendPre(row[0] + ', ' + row[4]);
-      }
-    } else {
-      appendPre('No data found.');
-    }
+    buildTableOne(response);
+  }, function(response) {
+    appendPre('Error: ' + response.result.error.message);
+  });
+  gapi.client.sheets.spreadsheets.values.get({
+    spreadsheetId: '1oB-GGFn4VeWxXrwKT6_Xs0ivenLd081qXQJFXSQo0dM',
+    range: 'Notes',
+  }).then(function(response) {
+    console.log(response);
+    buildTableTwo(response);
   }, function(response) {
     appendPre('Error: ' + response.result.error.message);
   });
