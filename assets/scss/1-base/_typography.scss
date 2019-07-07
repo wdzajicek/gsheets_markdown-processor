@@ -1,2 +1,9 @@
 // Typography styles (site specific)
 // ===============================
+
+.typography__name {
+  font-family: $font-family-headings;
+  font-size: 4rem;
+  letter-spacing: .1rem;
+  color: $white;
+}

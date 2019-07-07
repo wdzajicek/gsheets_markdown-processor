@@ -8,6 +8,9 @@ function createHeadings(val) {
     '#####':'h5',
     '######':'h6'
   }
+  for (var i = 0; i < headingObject.length; i++) {
+    headingObject[i];
+  }
 }
 
 function markdownify(val) {
