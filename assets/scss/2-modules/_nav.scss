@@ -1,5 +1,6 @@
 .nav__navbar {
   opacity: .9;
+  z-index: 1031; // 1 z-index higher than BS4's fixed-top{z-index:1030;}
 }
 
 .nav__icon {

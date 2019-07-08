@@ -1,0 +1,421 @@
+---
+title: Windows Dev
+layout: content
+baseurl: ../../
+description: ""
+---
+
+{% include header-win-dev.html %}
+<section class="margin__clear-nav">
+  <div class="row row-pad">
+    <div class="col-lg-2 pull-left"></div>
+    <div class="col-lg-8">
+      <h3>Setting up bash on Ubuntu on Windows 10 with RVM, Node.js, Gulp, and Dotfiles!</h3>
+      <br>
+      <p id="contents">Prerequisites: Native Windows 10 PC (I am using Windows 10 Home with the Fall Creators Update)</p>
+      <br>
+      <hr>
+      <h3>Contents:</h3>
+      <hr>
+      <ol>
+        <li><a href="#ass">Assumptions</a></li>
+        <li><a href="#auto">Helpful Automations</a></li>
+        <li><a href="#scroll">Enable Scrolling in Git CMD</a></li>
+        <li><a href="#bash">Install Bash on Ubuntu on Windows 10</a></li>
+        <li><a href="#update-ubuntu">Update Ubuntu</a></li>
+        <li><a href="#cleanup">Cleanup Prior Rubies</a></li>
+        <li><a href="#rvm">Install RVM</a></li>
+        <li><a href="#ruby">Install Latest Ruby Version and Update</a></li>
+        <li><a href="#jekyll">Install Jekyll</a></li>
+        <li><a href="#node">Install a Specific Version of Node.js</a></li>
+        <li><a href="#bundler">Install Bundler</a></li>
+        <li><a href="#gulp">Install Gulp</a></li>
+        <li id="ass"><a href="#dotfiles">Dotfiles on Bash on Ubuntu on Windows 10</a></li>
+      </ol><br>
+      <hr>
+      <h3>Assumptions</h3>
+      <hr>
+      <ul class="disc-only">
+        <li>Command prompts (cmd.exe, git-cmd.exe) should always be run as Administrator.</li>
+        <li>I use Git CMD (git-cmd.exe) for my Windows command line:</li>
+        <ul class="disc-only">
+          <li>Git command (git-cmd.exe) is downloaded and installed with the standard git-scm installer at: <a href="https://git-scm.com/">https://git-scm.com/</a>.</li>
+          <li>I DO recommend going to <a href="https://git-scm.com/">https://git-scm.com/</a>, downloading, and doing a standard install (leaving all settings default).</li>
+          <li>Git Command IS different than Git Bash</li>
+        </ul>
+        <li>Square brackets are used to designate a key on the keyboard such as the escape key: [Esc]</li>
+        <li>Commands starting with "$" designate commands that should be run in a bash shell instance.</li>
+        <li>Each command will be on its own line and preceded by a "$".</li>
+        <li>Comment lines start with // and use white text whereas code is green text.</li>
+        <li>Lines of code should be run one at a time.</li>
+          <ul class="disc-only">
+            <li><div class="code-box"><p class="code"><span class="comment">// type bash and hit [enter] to start a bash shell instance</span> <br>
+            bash <br><br>
+            <span class="comment">// &#60;values&#62; are meant to be replaced with a real value</span><br>
+            $ gem update &#60;gemname&#62;</div></li>
+          </ul>
+        </ul><br>
+        <p><a id="auto" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Helpful Automations</h3>
+      <hr>
+      <p>There are certain things you can do to make you command prompt experience more enjoyable. These automation steps are optional, but make life easier</p>
+      <ul class="disc-only">
+        <strong><li>Set Git Command to run with Administrator privileges every time:</li></strong><br>
+        <ol>
+          <strong><li>Pin git-cmd.exe to taskbar:</li></strong>
+          <ul class="disc-only">
+            <li>Click the Windows start and search all programs for "Git CMD" within the git programs folder</li>
+            <li>Right click "Git CMD" and choose More > "Pin to taskbar"</li>
+          </ul>
+          <img src="{{ page.baseurl }}assets/img/taskbar-shortcut.png" alt=""><br><br>
+          <strong><li>Adjust the new taskbar shortcut's properties:</li></strong>
+          <ul class="disc-only">
+            <li>Right click the new Git CMD taskbar icon.</li>
+            <li>Right click "Git CMD" in the menu that popped up and choose "Properties".</li>
+            <li>Choose the "Advanced..." button from the "Shortcut" tab that you should already be on.</li>
+            <li>Check the "Run as Administrator" checkbox in the Advanced Properties dialog box that popped up.</li>
+            <li>Click "OK" to accept the change in the Advanced Properties dialog box</li>
+            <div class="row">
+              <div class="col-lg-4"><img src="{{ page.baseurl }}assets/img/shortcut-properties.png" alt=""></div>
+              <div class="col-lg-4"><img src="{{ page.baseurl }}assets/img/properties.png" alt=""></div>
+              <div class="col-lg-4"><img src="{{ page.baseurl }}assets/img/advanced-properties.png" alt=""></div>
+            </div><br><br>
+          </ul>
+          <strong><li>Click "Apply" then "OK" if you want to skip the next automation step. What will happen from this change is:</li></strong>
+          <ul class="disc-only">
+            <li>Clicking the Git CMD icon in your taskbar will now ask you for Administrative priveleges so that you don't have to specify it every time.</li>
+            <li>Note: this only affects launching Git CMD from that specific taskbar icon</li>
+            <li>Running Git CMD from the Windows Start menu will still require right clicking to specify "Run as Administrator"</li><br>
+          </ul>
+        </ol>
+        <strong><li>Set Git CMD to run the "bash" command for you when it opens:</li></strong><br>
+        <ol>
+          <strong><li>If not in the Git CMD taskbar icon's properties, go there:</li></strong>
+          <ul class="disc-only">
+            <li>Right click the new Git CMD taskbar icon.</li>
+            <li>Right click "Git CMD" in the menu that popped up and choose "Properties".</li><br>
+          </ul>
+          <strong><li>Add "bash" to the end of the "Target:" field.</li></strong>
+          <ul class="disc-only">
+            <li>Your Target should read <span class="field-text">"C:\Program Files\Git\git-cmd.exe" --cd-to-home</span> or something along those lines by default.</li>
+            <li>You want it to read: <span class="field-text">"C:\Program Files\Git\git-cmd.exe" --cd-to-home bash</span></li>
+            <li>Click "Apply" then "OK" to accept the changes.</li>
+            <img src="{{ page.baseurl }}assets/img/target.png" alt=""><br><br>
+          </ul>
+          <strong><li>Now, when you click the Git CMD taskbar icon it will run as Administrator and enter the bash command for you so you can get straight to your work.</li></strong><br>
+        </ol>
+      </ul><br>
+      <p><a id="scroll" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Enable Scrolling in Git CMD</h3>
+      <hr>
+      <p>For me, Git CMD would not scroll by default and the Git Bash scroll fix did not work for Git CMD. This is an issue when a command prints more lines of text than fit in the window. For example, I would run <span class="mini-code">$ rvm -h</span> and would be unable to see everything it returns such as warnings and errors that are printed first. I found the solution in Git CMD's Properties.</p>
+      <ul class="disc-only">
+        <li>To access the Properties dialog box, right-click on Git CMD's (blank) menu bar on the top.</li>
+        <li>From this right-click menu Choose Properties (at the bottom).</li>
+        <li>Go to the "Layout" tab.</li>
+        <li>Set the <strong>Screen Buffer Size</strong> Height: to a large value such as '1050'</li>
+      </ul>
+      <p><a id="bash" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Install Bash on Ubuntu on Windows 10</h3>
+      <hr>
+        <p>You need to be able to use $ bash from a cmd prompt.</p>
+        <p>To do this, use the following steps:</p>
+        <ol>
+        <strong><li>Enable the Linux Subsystem for Windows</li></strong><br>
+        <ol>
+          <li>Open PowerShell as Administrator</li>
+          <li>Run the following command to enable the Linux Subsystem:</li>
+            <ul class="disc-only"><li><p class="code">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux</p></li></ul>
+          <li>Follow any prompts and restart when prompted.</li>
+        </ol><br>
+        <strong><li>Download and install Ubuntu:</li></strong><br>
+          <ol>
+            <li>Make sure new programs are set to install on your C:/ drive</li>
+            <ul class="disc-only">
+              <li><strong>Settings &#62; System &#62; Storage</strong><br>
+                under <strong><em>"Manage storage settings"</em></strong>, set <strong><em>"New apps will save to:"</em></strong> to <strong><em>"This PC (C:)"</em></strong></li><br>
+            </ul>
+            <li>Go to the Microsoft Store app and search for, and install, Ubuntu.</li>
+            <li>Run Ubuntu initial setup:</li>
+            <ol>
+              <li>Click the new Ubuntu start-menu item to launch Ubuntu for the first time.</li>
+              <li>Follow the prompts for the first installation.</li>
+              <li>Create, and REMEMBER, a new UNIX username and Password</li>
+                <ul class="disc-only">
+                  <li><strong><em>You will use this password a lot, so choose wisely. It's used for things like running commands as root user with sudo.</em></strong></li><br>
+                </ul>
+            </ol>
+            <li>Turn Windows Developer Mode on:</li>
+            <ol><br>
+              <div class="row">
+                <div class="col-lg-4 pull-left"><img src="{{ page.baseurl }}assets/img/start.jpg" alt="" class="img-fluid"></div>
+                <div class="col-lg-4"><img src="{{ page.baseurl }}assets/img/settings.png" alt="" class="img-fluid"></div>
+                <div class="col-lg-4 pull-right"><img src="{{ page.baseurl }}assets/img/developer.png" alt="" class="img-fluid"></div>
+              </div><br>
+              <li>Go to <strong>Settings &#62; Update & Security &#62; For developers</strong> and select the <strong><em>"Developer mode"</em></strong> radio circle.</li>
+              <li>Apply the default "File Explorer" and "PowerShell" settings.</li>
+            </ol>
+          </ol>
+      </ol><br>
+      <p><strong>You should now be able to type the <span class="mini-code">$ bash</span> command into any command prompt (e.g. cmd.exe, git cmd) to create a bash shell instance in Windows.</strong></p><br>
+      <br>
+      <p><a id="update-ubuntu" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Update Ubuntu</h3>
+      <hr>
+      <ul class="disc-only">
+        <li>To update Ubuntu on Windows 10 run:</li>
+        <li><p class="code"><span class="comment">// start a bash instance</span><br>
+          bash <br><br>
+          <span class="comment">// update and upgrade Ubuntu using apt-get</span><br>
+          $ sudo apt-get update -y && sudo apt-get upgrade -y</p></li>
+      </ul><br>
+      <p><a href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <div class="row danger-row">
+        <h3 class="important text-center">**KEEP OUT OF ROOM 237**</h3><br>
+        <p class="warn"><strong>NEVER ATTEMPT TO MODIFY OR ACCESS ANY PART OF THE LINUX SUSYSTEM using windows or any program (e.g. Windows Explorer, Atom).</strong></p>
+        <p class="warn"><strong>Windows programs will corrupt the Linux system's code by inserting its garbage, and BAD THINGS WILL HAPPEN!</strong></p>
+        <p class="warn" id="cleanup"><strong>You should ONLY MODIFY LINUX SUBSYSTEM USING A BASH SHELL INSTANCE if you know what you are doing.</strong></p>
+      </div><br>
+      <hr>
+      <h3>Cleanup Prior Rubies if Needed</h3>
+      <hr>
+      <p>Prior to the next steps, I had installed Jekyll via the method on jekyllrb.com Docs Installing on Windows page. This ruby version and the installed ruby gems must be removed FIRST.</p>
+      <ul class="disc-only">
+        <li>To remove Ruby installed via jekyllrb.com/docs/windows/</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// remove the ruby version installed via jekyllrb.com</span><br>
+          $ sudo apt-get remove ruby2.3 ruby2.3-dev build-essential dh-autoreconf <br><br>
+
+          <span class="comment">// and a little bit of cleanup</span><br>
+          $ sudo apt autoremove</p></li>
+        </ul>
+      </ul><br>
+      <ul class="disc-only">
+        <li>I also had conflicting RVM installed on top of that. You shouldn't need this step unless you've tried to install RVM already. If you need to start fresh run:</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// cleanup rvm source files</span><br>
+            $ rvm cleanup all <br><br>
+            <span class="comment">// remove rvm installation</span><br>
+            $ rvm implode</p></li>
+        </ul>
+      </ul><br>
+      <p><a id="rvm" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Install RVM</h3><br>
+      <hr>
+      <ol>
+        <li>Request RVM keys from public key server:</li>
+        <ul class="disc-only">
+          <li><p class="code code-scroll">$&#160;gpg&#160;&#8209;&#8209;keyserver&#160;hkp://keys.gnupg.net&#160;&#8209;&#8209;recv&#8209;keys&#160;409B6B1796C275462A1703113804BB82D39DC0E3&#160;7D2BAF1CF37B13E2069D6956105BD0E739499BDB</p></li>
+        </ul><br>
+        <li>Install gnupg2:</li>
+        <ul class="disc-only">
+          <li><p class="code">$ sudo apt-get install gnupg2</p></li><br>
+        </ul>
+        <li>Download and run RVM installation shell script:</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// download the installation script <br>
+          // I left the instllation scripts as-is</span><br>
+          $ \curl -sSL https://get.rvm.io -o rvm.sh <br><br>
+          <span class="comment">// edit installation shell script with this</span><br>
+          $ less rvm.sh <br><br>
+          <span class="comment">// run the RVM installation shell script</span><br>
+          $ cat rvm.sh | bash -s stable <br><br>
+          <span class="comment">// set the RVM source path OR exit and restart cmd and start new bash instance</span><br>
+          $ source ~/.rvm/scripts/rvm</p></li>
+        </ul><br>
+      </ol>
+      <p><a id="ruby" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Install Latest Ruby Version and Update</h3>
+      <hr>
+      <ul class="disc-only">
+        <li>Install the latest stable version</li>
+        <ul class="disc-only">
+          <li><p class="code">$ rvm install ruby --default</p></li>
+        </ul><br>
+        <li>Check ruby installation:</li>
+        <ul class="disc-only">
+          <li><p class="code">$ ruby -v <br><br>
+          <span class="comment">// my ruby version returns 2.4.1</span><br>
+          ruby 2.4.1p111 (2017-03-22 revision 58053) [x86_64-linux]</p></li>
+        </ul><br>
+        <li>Update gems with:</li>
+        <ul class="disc-only">
+          <li><p class="code">$ gem update</p></li>
+        </ul><br>
+        <li>I had to install a libgemplugin-ruby dependency with:</li>
+        <ul class="disc-only">
+          <li><p class="code">$ sudo apt-get install libgemplugin-ruby</p></li>
+        </ul>
+      </ul><br>
+      <p><a id="jekyll" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Install Jekyll</h3>
+      <hr>
+      <ul class="disc-only">
+        <li>Install the jekyll gem with:</li>
+        <ul class="disc-only">
+          <li><p class="code">$ gem install jekyll bundler <br><br>
+          <span class="comment">// check the installation</span><br>
+          $ jekyll -v</p></li>
+        </ul>
+      </ul><br>
+      <p><a id="node" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Install a Specific Version of Node.js</h3>
+      <hr><br>
+      <p>Using the Windows Node.js installer will put node.js and npm in the windows system. We want to use node.js and npm while in the bash linux subsystem.</p>
+      <ul class="disc-only">
+        <li>Prepare for installation:</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// enter sudo su mode</span><br>
+          $ sudo su <br><br>
+          <span class="comment">// always good to update before installing</span><br>
+          $ apt-get -y update <br><br>
+          <span class="comment">// install git in the linux subsystem</span><br>
+          $ apt-get install git</p></li>
+        </ul><br>
+        <li>Use curl to download Node.js. Replace the only number in the command below, with the desired version number. Refer to https://nodejs.org/en/:</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// this will download the "Recommended" (stable) version 8.9.4 LTS</span><br>
+          $ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -<br>
+          <span class="comment">// install the downloaded version of nodejs:</span><br>
+          apt-get install -y nodejs<br><br>
+          <span class="comment">// OR - for the 9.6.1 "Current" version use:</span><br>
+          $ curl -sL https://deb.nodesource.com/setup_9.x | sudo -E bash - apt-get install -y nodejs<br>
+          <span class="comment">// nodejs 9.x needs this as well:</span><br>
+          apt-get install -y nodejs</p></li>
+        <li>Exit su with [Ctrl] + D</li>
+      </ul>
+      </ul><br>
+      <p><a id="bundler" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Install Bundler</h3>
+      <hr>
+      <ul class="disc-only">
+        <li><p class="code">$ gem install bundler</p></li>
+      </ul><br>
+      <p><a id="gulp" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Install Gulp</h3>
+      <hr>
+      <ul class="disc-only">
+        <li>Install Gulp.js globaly using the following command:</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// npm installs only ever work with sudo for me:</span><br>
+          $ sudo npm install --global gulp-cli</p></li>
+        </ul>
+      </ul><br>
+      <p><a id="dotfiles" href="#contents">Back to Contents</a></p><br>
+      <hr>
+      <h3>Dotfiles on Bash on Ubuntu on Windows 10</h3>
+      <hr>
+      <img src="{{ page.baseurl }}assets/img/dotfiles.jpg" class="img-centered" alt=""><br>
+      <p>Why bother with dotfiles on Windows? Dotfiles are awesome and easy to install, thats why! Above is a screenshot of my dotfiles in action. Customization of text colors is nice, but I love aliases. Instead of typing out comands like "git status" a million times, I just type "gs" for the same command.  These dotfiles are based off of github user paulirish's.</p>
+      <p>Some of my commonly used aliases include:</p>
+      <ul class="disc-only">
+        <li>g = git</li>
+        <li>gs = git status</li>
+        <li>ga = git add</li>
+        <li>gc = git commit</li>
+        <li>gb = git branch</li>
+        <li>go = git checkout</li>
+        <li>gu = gulp</li>
+        <li>gpom = git push origin master</li>
+        <li>gpum = git pull origin master</li>
+      </ul>
+      <br>
+      <ol>
+        <li>Change to Home Directory:</li>
+        <ul class="disc-only">
+          <li><p class="code">$ cd ~</p></li>
+        </ul><br>
+        <li>Download my dotfiles</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// clone the git repo</span><br>
+          $ git clone https://github.com/wdzajicek/dotfiles.git <br><br>
+          <span class="comment">// cd to downloaded repo</span><br>
+          $ cd dotfiles</p></li>
+        </ul><br>
+        <li>Open /dotfiles/.bash_prompt in vim.</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// view the file using vim:</span><br>
+          $ vim .bash_profile <br><br>
+          <span class="comment">// do NOT enter insert mode to copy text</span>
+        </ul><br>
+        <li>Copy the following code in vim by highlighting and right clicking:</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// ignore the first lines of code:</span><br>
+          [[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile <br><br>
+
+          export PATH="/usr/local/opt/gettext/bin:$PATH" <br><br>
+
+          <span class="comment">// this is the code we want:</span><br>
+          for file in ~/.{path,bash_prompt,aliases,functions}; do <br>
+        	[ -r "$file" ] && [ -f "$file" ] && source "$file"; <br>
+        done; <br>
+        unset file;<br><br>
+        <span class="comment">// ignore the code after</span></p></li>
+        <li>Every time you call "bash" in a command line the bash shell reads a file in your Home directory named ".bash_profile"</li>
+        <li>This code we copied is telling the bash shell to look in the home directory for .bash_prompt, .aliases, and .functions</li>
+      </ul><br>
+        <li>Exit vim</li>
+          <ul class="disc-only">
+            <li>To exit vim type ":q" and press enter</li>
+            <li>If in insert mode first press [Esc] to be able to type ":q"</li>
+            <li>If you need to force quit because you made accidental edits use ":q!"</li>
+          </ul><br>
+        <li>Paste code into current .bash_profile</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// back out one dir level (back to Home)</span><br>
+          $ cd .. <br><br>
+          <span class="comment">// open your actual .bash_profile in vim</span><br>
+          $ vim .bash_profile</p></li>
+          <li>Enter instert mode with [I] key on keyboard</li>
+          <li>Paste code before path to RVM</li>
+          <li>This is an EXAMPLE of what your .bash_profile may look like:</li>
+          <ul class="disc-only">
+            <li><p class="code">[[ -s "$HOME/.profile" ]] && source "$HOME/.profile" # Load the default .profile <br>
+            <br>
+            export PATH="/usr/local/opt/gettext/bin:$PATH" <br>
+            <br>
+            for file in ~/.{path,bash_prompt,aliases,functions}; do <br>
+            	[ -r "$file" ] && [ -f "$file" ] && source "$file"; <br>
+            done; <br>
+            unset file; <br>
+            <br>
+            [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*</p></li>
+          </ul>
+        </ul><br>
+        <li>Save edited .bash_profile and exit vim:</li>
+        <ul class="disc-only">
+          <li>Press [Esc] to exit insert mode</li>
+          <li>Type ":w" and press enter to write (save) the file</li>
+          <li>Type ":q" and press enter to exit vim</li>
+          <li>OR just combine both with ":wq"</li><br>
+        </ul>
+        <li>Copy .aliases, .functions, and .bash_promt to your Home dir. We told the bash shell to look for these dotfiles in the Home dir but they aren't there yet.</li>
+        <ul class="disc-only">
+          <li><p class="code"><span class="comment">// you may already be home:</span><br>
+          $ cd ~ <br><br>
+          <span class="comment">// go back into downloaded dotfiles repo</span><br>
+          $ cd dotfiles <br><br>
+          <span class="comment">// use the cp command to copy the files and place them up one dir level (in your Home dir)</span><br>
+          $ cp .aliases ../.aliases <br>
+          $ cp .functions ../.functions <br>
+          $ cp .bash_prompt ../.bash_prompt <br>
+          </p></li>
+          <li>Close all bash instances and restart a command prompt and run bash again</li>
+        </ul>
+      </ol>
+      <p><a href="#contents">Back to Contents</a></p><br>
+    </div>
+    <div class="col-lg-2 pull-right"></div>
+  </div>
+</section>

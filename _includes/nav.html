@@ -1,6 +1,6 @@
 <nav class="nav__navbar navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  <a class="navbar-brand" href="/">
-    <img src="/assets/img/me-icon.svg" class="nav__icon" alt="">
+  <a class="navbar-brand" href="{{ page.baseurl }}">
+    <img src="{{ page.baseurl }}assets/img/me-icon.svg" class="nav__icon" alt="">
   </a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -13,8 +13,8 @@
           Projects
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="/projects/sheets">Sheets Markdown Parser</a>
-          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="{{ page.baseurl }}projects/sheets">Sheets Markdown Parser</a>
+          <a class="dropdown-item" href="{{ page.baseurl }}projects/windows-dev">Windows Dev</a>
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#">Something else here</a>
         </div>
