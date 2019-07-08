@@ -1,0 +1,26 @@
+.gallery {
+  padding-left: 0;
+  padding-right: 0;
+  &__container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  &__row {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  &__col {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  &__img {
+    transition: transform 0.7s ease-in-out;
+    &--wrapper {
+      overflow: hidden;
+    }
+  }
+}
+
+.gallery__img:hover {
+  transform: scale(1.25,1.25);
+}

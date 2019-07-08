@@ -49,7 +49,7 @@ function createTableBody(table) {
  }
 
  function createCells(tr, val) {
-   markdownify(val);
+   val = markdownify(val);
    const td = document.createElement('td');
    tr.appendChild(td);
    td.innerHTML = val;

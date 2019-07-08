@@ -5,6 +5,8 @@
 @import '1-base/typography';
 @import '1-base/links';
 @import '1-base/buttons';
+@import '1-base/section';
+@import '1-base/img';
 
 // Modular components
 @import '2-modules/header';
@@ -13,12 +15,14 @@
 @import '2-modules/nav';
 @import '2-modules/social-icons';
 @import '2-modules/error';
+@import "2-modules/gallery";
 
 // Layout items
 // @import "3-layout/...";
 @import '3-layout/position';
 @import '3-layout/posts';
 @import '3-layout/margin';
+@import '3-layout/padding';
 
 // Page specific styling
 // @import "4-pages/...";
