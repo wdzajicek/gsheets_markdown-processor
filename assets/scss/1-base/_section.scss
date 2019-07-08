@@ -1,3 +1,7 @@
 .section__bg-img--fixed {
   background-image: url(/assets/img/section-back1.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center center;
+  background-size: cover;
 }

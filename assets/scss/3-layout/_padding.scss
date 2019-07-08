@@ -1,4 +1,28 @@
 .padding__section {
-  padding-bottom: 20px;
-  padding-top: 20px
+  padding-bottom: 30px;
+  padding-top: 30px;
+}
+
+@media screen and (min-width: 1400px) {
+  .padding__section {
+    padding-bottom: 50px;
+    padding-top: 50px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .padding__section {
+    padding-bottom: 80px;
+    padding-top: 80px;
+  }
+}
+
+.padding__sides-none {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.padding__sides-none .row { // Needed to counteract BS4 .row's negative margins
+  margin-left: 0; // Override BS4 margin-left: -15px
+  margin-right: 0; // Override BS4 margin-right: -15px
 }
