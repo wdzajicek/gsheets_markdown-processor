@@ -2,7 +2,9 @@ function parseLines(lineArray) {
   let lineHTML = '';
   for (var i = 0; i < lineArray.length; i++) {
     let line = lineArray[i];
+    let nextLine = lineArray[i + 1];
     let lineIsBlank = line != '';
+    let nextLineIsBlank = nextLine != '';
     lineIsBlank ?
       lineHTML += checkForHeadings(line) + '\n'
     : null;
@@ -18,6 +20,23 @@ function checkForHeadings(line) {
     '^####\\s':'h4',
     '^#####\\s':'h5',
     '^######\\s':'h6'
+  }
+  const lineStartTest = {
+    'oList': '^\\d\\d?\\.\\s\\S.+',
+    'uList': '^-\\s\\S.+',
+    'nestedOl': '^\\d\\d?\\.\\s\\s\\s\\s\\S.+',
+    'nestedUl': '^-\\s\\s\\s\\s\\S.+',
+    'nestedItem': '^\\s\\s\\s\\s\\S.+',
+    'blockquote': '^>\\s\\S',
+    'nestedBlockquote': '^>\\s>\\S.+',
+    'hr': '^---'
+  }
+  const firstCharTest = {
+    'code': '^`.+',
+    'codeBlock': '^```',
+    'heading': '^#',
+    'oList': '^\\d\\d?\\.\\s\\S.+',
+    'uList': '^-\\s\\S.+'
   }
 
   for (var key in headingObject) {
