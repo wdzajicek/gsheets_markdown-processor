@@ -57,7 +57,7 @@ function createTableBody(table) {
  }
 
 function buildTableTwo(response) {
-  console.log(response);
+  //console.log(response);
   const parent = document.getElementById('notesTable');
   const table = createTable(parent);
   const thead = createTableHead(table);

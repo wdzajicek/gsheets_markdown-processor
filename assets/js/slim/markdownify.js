@@ -1,68 +1,65 @@
-function parseLines(lineArray) {
-  let lineHTML = '';
-  for (var i = 0; i < lineArray.length; i++) {
-    let line = lineArray[i];
-    let nextLine = lineArray[i + 1];
-    let lineIsBlank = line != '';
-    let nextLineIsBlank = nextLine != '';
-    lineIsBlank ?
-      lineHTML += checkForHeadings(line) + '\n'
-    : null;
-  }
-  return lineHTML;
+function createHeadingHTML(markdown, el, regEx) {
+  let output;
+  output = markdown.replace(regEx, '<' + el + '>$<text></' + el + '>');
+  return output;
 }
 
-function checkForHeadings(line) {
-  const headingObject = {
-    '^#\\s':'h1',
-    '^##\\s':'h2',
-    '^###\\s':'h3',
-    '^####\\s':'h4',
-    '^#####\\s':'h5',
-    '^######\\s':'h6'
+function createInlineHTML(markdown, el, regEx) {
+  let output;
+  switch (el) {
+    case 'both':
+    case '_both':
+      output = markdown.replace(regEx, '<strong><em>$<text></em></strong>');
+      return output;
+      break;
+    case 'strong':
+    case '_strong':
+      output = markdown.replace(regEx, '<strong>$<text></strong>');
+      return output;
+      break;
+    case 'em':
+    case '_em':
+      output = markdown.replace(regEx, '<em>$<text></em>');
+      return output;
+      break;
   }
-  const lineStartTest = {
-    'oList': '^\\d\\d?\\.\\s\\S.+',
-    'uList': '^-\\s\\S.+',
-    'nestedOl': '^\\d\\d?\\.\\s\\s\\s\\s\\S.+',
-    'nestedUl': '^-\\s\\s\\s\\s\\S.+',
-    'nestedItem': '^\\s\\s\\s\\s\\S.+',
-    'blockquote': '^>\\s\\S',
-    'nestedBlockquote': '^>\\s>\\S.+',
-    'hr': '^---'
-  }
-  const firstCharTest = {
-    'code': '^`.+',
-    'codeBlock': '^```',
-    'heading': '^#',
-    'oList': '^\\d\\d?\\.\\s\\S.+',
-    'uList': '^-\\s\\S.+'
-  }
+}
 
-  for (var key in headingObject) {
-    if (headingObject.hasOwnProperty(key)) {
-      let reg = new RegExp(key, 'g');
-      let lineContainsMarkdownHeading = reg.test(line);
-      lineContainsMarkdownHeading ?
-        line = createHeading(line, reg, headingObject[key])
-      : null;
+function markdownify(input) {
+  let markdown = input.toString();
+  console.log(input);
+  const headingMarkdown = {
+    'h1': /^#\s(?<text>.+)/gm,
+    'h2': /^##\s(?<text>.+)/gm,
+    'h3': /^###\s(?<text>.+)/gm,
+    'h4': /^####\s(?<text>.+)/gm,
+    'h5': /^#####\s(?<text>.+)/gm,
+    'h6': /^######\s(?<text>.+)/gm,
+  }
+  const inlineMarkdown = {
+    'both': /\*\*\*(?<text>.+)\*\*\*/g,
+    'strong': /\*\*(?<text>.+)\*\*/g,
+    'em': /\*(?<text>.+)\*/g,
+    '_both': /___(?<text>.+)___/g,
+    '_strong': /__(?<text>.+)__/g,
+    '_em': /_(?<text>.+)_/g
+  }
+  const blockMarkdown = {
+    'p': /^(?<text>[^-#\d>\s].+)/gm,
+    'hr': /^---/gm
+  }
+  for (var key in headingMarkdown) {
+    if (headingMarkdown.hasOwnProperty(key)) {
+      markdown = createHeadingHTML(markdown, key, headingMarkdown[key]);
     }
   }
-  return line;
-}
-
-function createHeading(line, reg, value) {
-  let heading = document.createElement(value);
-  heading.innerHTML = line.replace(reg, '');
-  return heading.outerHTML;
-}
-
-function markdownify(val) {
-  //console.log(val);
-  const lineEnding = /\n/g;
-  const lines = val.split(lineEnding);
-  let newVal = parseLines(lines);
-  return newVal;
+  for (var key in inlineMarkdown) {
+    if (inlineMarkdown.hasOwnProperty(key)) {
+      markdown = createInlineHTML(markdown, key, inlineMarkdown[key]);
+    }
+  }
+  markdown = markdown.replace(/^(?<text>[^-#\d>\s].+)/gm, '<p>$<text></p>');
+  return markdown;
 }
 
 export default markdownify;
