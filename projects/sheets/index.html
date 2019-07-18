@@ -27,6 +27,34 @@ sheet_key: true
         </div>
           <div class="tab-pane fade pt-5" id="notes" role="tabpanel" aria-labelledby="notes-tab">
             <div id="notesTable"></div>
+            <div class="mt-5 card" id="newNote">
+              <h5 class="card-header">New Note</h5>
+              <div class="card-body p-5">
+                <form action="" method="post">
+                  <div class="form-row">
+                    <div class="col-md-4">
+                      <h5 class="card-title">Create a New Note</h5>
+                    </div>
+                    <div class="form-group col-md-3">
+                      <label for="currentDate">Date</label>
+                      <input class="form-control" id="currentDate" aria-describedby="dateHelp" type="date" placeholder="Date" readonly>
+                      <small id="dateHelp" class="form-text text-muted">Creation date of this note.</small>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="form-group col">
+                      <label for="noteInput">Example textarea</label>
+                      <textarea class="form-control" id="noteInput" rows="10"></textarea>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
 

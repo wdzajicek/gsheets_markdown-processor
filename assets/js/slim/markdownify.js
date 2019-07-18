@@ -1,3 +1,36 @@
+function testForMarkdown(line) {
+
+}
+
+function loopMarkdownArray(markdownArray) {
+  let newArray = [];
+  for (var i = 0; i < markdownArray.length; i++) {
+    let prevLine = markdownArray[i - 1];
+    let nextLine = markdownArray[i + 1];
+    let line = markdownArray[i];
+    let nextLineIsBlank = nextLine === '';
+    let lineIsNotBlank = line !== '';
+    let prevLineIsNotBlank = prevLine !== '';
+    let nextLineIsNotBlank = nextLine !== '';
+    if (lineIsNotBlank) {
+      if (prevLineIsNotBlank) {
+        if (nextLineIsNotBlank) {
+          // In-the-middle list items
+        } else {
+          // Last list item stuff here
+        }
+      } else if (nextLineIsBlank) {
+        // Do single-list-item list stuff here
+      } else {
+        // Do previous line is blank stuff here
+        // (first list item)
+      }
+    }
+    line =  testForMarkdown(line);
+    newArray.push(line)
+  }
+}
+
 function createHeadingHTML(markdown, el, regEx) {
   let output;
   output = markdown.replace(regEx, '<' + el + '>$<text></' + el + '>');
@@ -44,10 +77,6 @@ function markdownify(input) {
     '_strong': /__(?<text>.+)__/g,
     '_em': /_(?<text>.+)_/g
   }
-  const blockMarkdown = {
-    'p': /^(?<text>[^-#\d>\s].+)/gm,
-    'hr': /^---/gm
-  }
   for (var key in headingMarkdown) {
     if (headingMarkdown.hasOwnProperty(key)) {
       markdown = createHeadingHTML(markdown, key, headingMarkdown[key]);
@@ -58,7 +87,11 @@ function markdownify(input) {
       markdown = createInlineHTML(markdown, key, inlineMarkdown[key]);
     }
   }
-  markdown = markdown.replace(/^(?<text>[^-#\d>\s].+)/gm, '<p>$<text></p>');
+  markdown = markdown.replace(/^(?<text>[^-#\d><\s].+)/gm, '<p>$<text></p>');
+  markdown = markdown.replace(/^---/gm, '<hr>');
+  let markdownArray = markdown.split(/\n/g);
+  console.log(markdownArray);
+  loopMarkdownArray(markdownArray)
   return markdown;
 }
 
