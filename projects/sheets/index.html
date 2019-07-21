@@ -25,41 +25,67 @@ sheet_key: true
             <h4 class="text-danger">You need to sign in to access the sheet.</h4>
           </div>
         </div>
-          <div class="tab-pane fade pt-5" id="notes" role="tabpanel" aria-labelledby="notes-tab">
+          <div class="tab-pane fade pt-3" id="notes" role="tabpanel" aria-labelledby="notes-tab">
+            <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#newNote">New Note</button>
             <div id="notesTable"></div>
-            <div class="mt-5 card" id="newNote">
-              <h5 class="card-header">New Note</h5>
-              <div class="card-body p-5">
-                <form action="" method="post">
-                  <div class="form-row">
-                    <div class="col-md-4">
-                      <h5 class="card-title">Create a New Note</h5>
-                    </div>
-                    <div class="form-group col-md-3">
-                      <label for="currentDate">Date</label>
-                      <input class="form-control" id="currentDate" aria-describedby="dateHelp" type="date" placeholder="Date" readonly>
-                      <small id="dateHelp" class="form-text text-muted">Creation date of this note.</small>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="form-group col">
-                      <label for="noteInput">Example textarea</label>
-                      <textarea class="form-control" id="noteInput" rows="10"></textarea>
-                    </div>
-                  </div>
-                  <div class="form-row">
-                    <div class="col">
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
+
+
         </div>
 
         <pre id="content" style="white-space: pre-wrap;"></pre>
       </div>
     </div>
   </div>
+  <!-- Modal -->
+  <div class="modal fade" id="newNote" tabindex="-1" role="dialog" aria-labelledby="newNoteTitle" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="newNoteTitle">New Note</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="newNoteInputForm">
+              <div class="form-row">
+                <div class="col">
+                  <h5 class="card-title">Create a New Note</h5>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                  <label for="categorSelect">Note Category</label>
+                  <select class="form-control" id="categorySelect">
+                    <option>Work</option>
+                    <option>Personal</option>
+                    <option>Dev</option>
+                    <option>Shopping</option>
+                    <option>Ideas</option>
+                    <option>Other</option>
+                  </select>
+                </div>
+                </div>
+                <div class="form-group col-md-3">
+                  <label id="labelForCurrentDate" for="currentDate">Date</label>
+                  <input class="form-control" id="currentDate">
+                  <small id="dateHelp" class="form-text text-muted">Creation date of this note.</small>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col">
+                  <label for="noteInput">Note text</label>
+                  <textarea class="form-control" id="noteInput" rows="10"></textarea>
+                </div>
+              </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" id="submitButton" class="btn btn-primary mr-auto">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
 </main>
