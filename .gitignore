@@ -32,8 +32,10 @@ _site
 .sass-cache
 .jekyll-metadata
 
-# Ignore node modules
+## Ignore Nodejs Stuffs ##
 node_modules/
+# Keep lockfile out of repo to avoide cross-arch (window/mac/linux) issues.
+package-lock.json 
 
 # Ignore gem lock to avoid mac/windows discrepencies
 # Gemfile.lock
@@ -50,3 +52,4 @@ yarn-error.log
 # Ye Olde Gulp tasks from an API long, long ago, in a galaxy far, far away:
 old-gulp-tasks/
 old.gulpfile.js
+
