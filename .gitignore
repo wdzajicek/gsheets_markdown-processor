@@ -1,5 +1,5 @@
 ### Ignore the Gemfile to keep it out of cloudcannon ###
-# Gemfile
+#Gemfile
 
 ### General Apple things to ignore ###
 .DS_Store
@@ -38,7 +38,7 @@ node_modules/
 package-lock.json 
 
 # Ignore gem lock to avoid mac/windows discrepencies
-# Gemfile.lock
+Gemfile.lock
 
 # Ignore adobe directory containing working illustrator, photoshop,
 assets/adobe/
