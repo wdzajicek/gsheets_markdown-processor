@@ -4,11 +4,11 @@ const HashPlugin = require('hash-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const config = {
-  mode: 'production',
+  //mode: 'production', // Mode is not needed, it already gets passed through the npm commands
   watch: true,
   //entry: path.join(__dirname, 'webpack', 'main'),
   entry: {
-    'main': './assets/js/script/all.js',
+    'main': './assets/js/src/all.js',
     'slim': './assets/js/slim/slim.js'
   },
   output: {
