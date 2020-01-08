@@ -49,7 +49,7 @@ sitemap:
     - "_site/**/*.pdf" # Yes, PDF's too.
     - "_site/**/**/*.pdf"
   notification: "Running sitemap"
-  siteUrl: "wesleyzajicek.com"
+  siteUrl: "https://wesleyzajicek.com"
 
 jekyll:
   notification: "Running jekyll"
