@@ -10,8 +10,6 @@ permalink: pretty
 
 # Build settings
 markdown: kramdown
-plugins:
-  - jekyll-feed
 
 include:
   - "favicon.ico"
