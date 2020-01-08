@@ -2,34 +2,34 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         
-        <loc>wesleyzajicek.com/</loc>
+        <loc>https://wesleyzajicek.com/</loc>
     
         
-        <lastmod>2020-01-08T19:15:50.251Z</lastmod>
-    
-    </url>
-    <url>
-        
-        <loc>wesleyzajicek.com/404/</loc>
-    
-        
-        <lastmod>2020-01-08T19:15:50.251Z</lastmod>
+        <lastmod>2020-01-08T19:56:21.906Z</lastmod>
     
     </url>
     <url>
         
-        <loc>wesleyzajicek.com/projects/sheets/</loc>
+        <loc>https://wesleyzajicek.com/404/</loc>
     
         
-        <lastmod>2020-01-08T19:15:50.251Z</lastmod>
+        <lastmod>2020-01-08T19:56:21.905Z</lastmod>
     
     </url>
     <url>
         
-        <loc>wesleyzajicek.com/projects/windows-dev/</loc>
+        <loc>https://wesleyzajicek.com/projects/sheets/</loc>
     
         
-        <lastmod>2020-01-08T19:15:50.251Z</lastmod>
+        <lastmod>2020-01-08T19:56:21.905Z</lastmod>
+    
+    </url>
+    <url>
+        
+        <loc>https://wesleyzajicek.com/projects/windows-dev/</loc>
+    
+        
+        <lastmod>2020-01-08T19:56:21.906Z</lastmod>
     
     </url>
 </urlset>
