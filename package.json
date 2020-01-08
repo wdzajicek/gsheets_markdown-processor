@@ -36,7 +36,7 @@
     "dev": "run-p gulp-sequence-dev webpack-dev",
     "build": "gulp build"
   },
-  "author": "",
+  "author": "wdzajicek",
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.4.4",
